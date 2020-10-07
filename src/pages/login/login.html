@@ -1,0 +1,97 @@
+
+ 
+<ion-header >
+  <ion-navbar color='dark'>
+    <div class="row"> 
+      <div class="col"></div>
+        <div class="col-sm-2" style="text-align:right;">
+          <button ion-button  style="font-size: 25px;color:white;font-weight: bold;background-color:#222222;" >
+            
+            <span > తేట తెలుగు మాటలు</span>
+          </button>
+        </div>
+        <div class="col"></div>
+         
+      </div> 
+    </ion-navbar>
+  </ion-header>  
+
+<ion-content >
+ 
+  <div>
+  <ion-card class="backgroundImage" style="margin-bottom:50px;margin-top:60px">
+    
+    <ion-card-content>
+        <ion-grid text-center>
+          <ion-row>
+            <ion-col >
+              <h1 style="color:white">వాడుకరి లోనికి వెళ్ళే వివరము</h1>
+            </ion-col>
+          </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-row>
+                        <ion-col>
+                            <ion-row>
+                                <ion-col>
+                                    <ion-item  class="controlColor">
+                                     
+                                        <ion-label>వాడుకరి పేరు:</ion-label>
+                                        <ion-input [(ngModel)]="userName"   maxlength="127"
+                                            
+                                            type="text" ></ion-input>
+                                    </ion-item>
+                                        
+                                </ion-col><br>
+                                <span style="color:maroon" class="blink_text">{{this.userNameErrMsg}}</span>
+                            </ion-row>
+                            
+                        </ion-col>
+                        
+                    </ion-row>
+  
+                   
+                    <ion-row>
+                            <ion-col>
+                                    <ion-row>
+                                            <ion-item class="controlColor">
+                                                <ion-label>చాటు మాట:</ion-label>
+                                                <ion-input type="password" [(ngModel)]="password"  maxlength="15"
+                                                
+                                                ></ion-input>  
+                                        </ion-item>
+                                              
+                                          </ion-row>
+                                        <ion-row > 
+                                            <ion-col text-left>
+                                                <span style="color:maroon" class="blink_text">{{this.passwordErrMsg}}</span>
+                                                
+                                            </ion-col>
+                                        </ion-row>
+                            </ion-col>
+                            
+                        </ion-row>
+   
+                </ion-col>
+                   
+            </ion-row>
+            
+          
+              
+                <ion-row>
+                    <ion-col text-left>
+                        
+                            <button ion-button round (click)="login()">లోనికి వెళ్ళు</button>
+                            
+                              <button *ngIf="isAdmin==false" ion-button round (click)="createAdmin()">పాలకున్ని తయరు చేయు</button>
+                            
+                      
+                    </ion-col>
+                     </ion-row>
+  
+        </ion-grid>
+  
+      </ion-card-content>
+    </ion-card>
+  </div>
+  </ion-content>

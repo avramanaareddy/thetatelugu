@@ -1,0 +1,331 @@
+<!--
+  Generated template for the ListMataPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>ListMata</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item class="controlColor">
+
+          <ion-label>తెలుగు మాట:</ion-label>
+          <ion-input [(ngModel)]="reqTeluguMata" maxlength="64" type="text">
+          </ion-input>
+        </ion-item>
+
+      </ion-col>
+
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button ion-button round (click)="searchTeluguMata();">తెలుగుమాట వెతుకు</button>
+        &nbsp;<button ion-button round (click)="getTeluguMatalu();">అన్ని తెలుగు మాటలు తెమ్ము</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+
+        <div *ngIf="teluguMatalu!=null">
+          <ngx-datatable class="dark expandable" [rows]="this.teluguMatalu" [columnMode]="'force'" [headerHeight]="40"
+            [footerHeight]="40" [rowHeight]="35" [limit]="8">
+
+            <ngx-datatable-column name="తెలుగుమాట" [width]="100">
+              <ng-template let-row="row" ngx-datatable-cell-template text-wrap>
+                <a (click)="viewMata=row;isEdit=false;isNew=false"> <b>{{ row.teluguMata}}</b></a>
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="తెల్లము[అర్థము]" [width]="100">
+              <ng-template let-row="row" ngx-datatable-cell-template text-wrap>
+
+                {{ row.teluguMeaning}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="ఇంగ్లీష్ తెల్లము" [width]="100">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+
+                {{row.englishMeaning}}
+
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="మూలము" [width]="50">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                <div *ngIf="row.mulamu=='తె'">
+                  తెలుగు
+                </div>
+                <div *ngIf="row.mulamu=='త'">
+                  తమిళము
+                </div>
+                <div *ngIf="row.mulamu=='క'">
+                  కన్నడ
+                </div>
+                <div *ngIf="row.mulamu=='హి'">
+                  హింది
+                </div>
+                <div *ngIf="row.mulamu=='ఉ'">
+                  ఉర్దు
+                </div>
+                <div *ngIf="row.mulamu=='స'">
+                  సంస్కృతము
+                </div>
+                <div *ngIf="row.mulamu=='ఆ'">
+                  ఇంగ్లీష్
+                </div>
+                <div *ngIf="row.mulamu=='ఇ'">
+                  వేఱె నుడి
+                </div>
+
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="మట్టు" [width]="50">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+
+                {{row.rating}}
+
+              </ng-template>
+            </ngx-datatable-column>
+
+
+
+            <ngx-datatable-column name="టీక" [width]="300">
+              <ng-template let-row="row" ngx-datatable-cell-template text-wrap>
+
+                {{row.comments}}
+
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column [width]="100" *ngIf="this.globaldata.user.adminUser=='yes'">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                <ion-row>
+                  <ion-col>
+                    <a (click)="editMata(row);isEdit=true;viewMata=null" style="color:lightblue;cursor:pointer"><u>Edit</u></a>
+                  </ion-col>
+                  <ion-col>
+                    <a (click)="deleteMata(row);isEdit=false;isNew=false;viewMata=null;reset();" style="color:lightblue;cursor:pointer"><u>Delete</u></a>
+                  </ion-col>
+                </ion-row>
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+
+        </div>
+
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button ion-button round (click)="reset();isEdit=false;isNew=true;viewMata=null">తెలుగుమాటను తయారు చేయు</button>
+        <button  ion-button round (click)="getReport()">తెలుగుమాటల నివేదిక</button>
+        <br>
+        <a id="test" style="display:none"></a>
+      </ion-col>
+    </ion-row>
+
+
+    <div *ngIf="viewMata!=null">
+      <ion-card>
+        <ion-row>
+          <ion-col>తెలుగుమాట: {{viewMata.teluguMata}}</ion-col>
+          <ion-col>తెల్లము: {{viewMata.teluguMeaning}}</ion-col>
+          <ion-col>ఇంగ్లీష్ లో: {{viewMata.englishMeaning}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <div *ngIf="viewMata.mulamu=='తె'">
+              మూలము: తెలుగు
+            </div>
+            <div *ngIf="viewMata.mulamu=='త'">
+              మూలము: తమిళము
+            </div>
+            <div *ngIf="viewMata.mulamu=='క'">
+              మూలము: కన్నడ
+            </div>
+            <div *ngIf="viewMata.mulamu=='హి'">
+              మూలము: హింది
+            </div>
+            <div *ngIf="viewMata.mulamu=='ఉ'">
+              మూలము: ఉర్దు
+            </div>
+            <div *ngIf="viewMata.mulamu=='స'">
+              మూలము: సంస్కృతము
+            </div>
+            <div *ngIf="viewMata.mulamu=='ఆ'">
+              మూలము: ఇంగ్లీష్
+            </div>
+            <div *ngIf="viewMata.mulamu=='ఇ'">
+              మూలము: వేఱె నుడి
+            </div>
+          </ion-col>
+          <ion-col>మట్టు: {{viewMata.rating}}</ion-col>
+          <ion-col>తయారిదారుడు: {{viewMata.teluguMata}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>బదులు మాట: {{viewMata.alternateMeaning}}</ion-col>
+
+          <ion-col>మార్చిన తేది: {{viewMata.updatedAt.split('T')[0]}}</ion-col>
+          <ion-col>తయారీ తేది: {{viewMata.createdAt.split('T')[0]}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>టీక: {{viewMata.comments}}</ion-col>
+
+        </ion-row>
+      </ion-card>
+    </div>
+
+     
+    <div *ngIf="isNew || isEdit">
+      <ion-row>
+        <ion-col>
+          <ion-card class="backgroundImage">
+
+            <ion-card-content>
+              <ion-grid text-center>
+                <ion-row>
+                  <ion-col>
+                    <ion-row>
+                      <ion-col>
+                       
+                        <ion-row>
+                          <ion-col>
+                            <ion-item class="controlColor">
+      
+                              <ion-label floating>తెలుగు మాట</ion-label>
+                              <ion-input [disabled]="isEdit" [(ngModel)]="teluguMata" (ionBlur)="checkTeluguMata()" maxlength="127" type="text">
+                              </ion-input>
+                            </ion-item>
+      
+                          </ion-col>
+                        </ion-row>
+                        <ion-row>
+                          <ion-col text-left>
+                            <span style="color:maroon" class="blink_text">{{this.teluguMataErrMsg}}</span>
+      
+                          </ion-col>
+                        </ion-row>
+                      </ion-col>
+                      <ion-col>
+                        <ion-row>
+                          <ion-col>
+                            <ion-item class="controlColor">
+                              <ion-label floating>మూలము</ion-label>
+                              <ion-select [(ngModel)]="mulamu" interface="popover">
+                                <ion-option *ngFor="let m of this.globaldata.mulamulu" [value]="m.mCode"> {{m.mDesc}}</ion-option>
+                              </ion-select>
+                            </ion-item>
+                          </ion-col>
+                        </ion-row>
+                        <ion-row>
+                          <ion-col text-left>
+                            <span style="color:maroon" class="blink_text">{{this.mulamuErrMsg}}</span>
+      
+                          </ion-col>
+                        </ion-row>
+                      </ion-col>
+                    </ion-row>
+      
+      
+                    <ion-row>
+                      <ion-col>
+                        <ion-row>
+                          <ion-col>
+                            <ion-item class="controlColor">
+                              <ion-label floating>వాడుక కొలత</ion-label>
+                              <ion-select [(ngModel)]="rating" interface="popover">
+                                <ion-option *ngFor="let rt of this.globaldata.ratings" [value]="rt.rtCode"> {{rt.rtDesc}}</ion-option>
+                              </ion-select>
+                            </ion-item>
+                          </ion-col>
+                        </ion-row>
+                        <ion-row>
+                          <ion-col text-left>
+                            <span style="color:maroon" class="blink_text">{{this.ratingErrMsg}}</span>
+      
+                          </ion-col>
+                        </ion-row>
+                      </ion-col>
+                      <ion-col>
+                        <ion-row>
+                          <ion-col>
+                            <ion-item class="controlColor">
+                              <ion-label floating>తెల్లము[అర్థము]</ion-label>
+                              <ion-input [(ngModel)]="teluguMeaning" maxlength="511" type="text"></ion-input>
+                            </ion-item>
+                          </ion-col>
+                        </ion-row>
+      
+                      </ion-col>
+                    </ion-row>
+      
+      
+                    <ion-row>
+                      <ion-col>
+                        <ion-row>
+                          <ion-item class="controlColor">
+                            <ion-label floating>ఇంగ్లీష్</ion-label>
+                            <ion-input [(ngModel)]="englishMeaning" maxlength="511" type="text"></ion-input>
+                          </ion-item>
+                        </ion-row>
+                      </ion-col>
+                      <ion-col>
+                        <ion-row>
+                          <ion-item class="controlColor">
+                            <ion-label floating>బదులు మాటలు</ion-label>
+                            <ion-input [(ngModel)]="alternateMeaning" maxlength="511" type="text"></ion-input>
+                          </ion-item>
+                        </ion-row>
+                      </ion-col>
+                    </ion-row>
+                  </ion-col>
+      
+                </ion-row>
+                <ion-row>
+                  
+                  <ion-col>
+                    <ion-item class="controlColor">
+                      <ion-label floating>టీక</ion-label>
+                      <ion-input [(ngModel)]="comments" maxlength="1023" type="text"></ion-input>
+                    </ion-item>
+                  </ion-col>
+      
+      
+                </ion-row>
+      
+      
+                <ion-row>
+                  <ion-col>
+                    <div *ngIf="isNew">
+                    <button ion-button round (click)="addNewMata()">చేర్చుము</button>
+                  </div>
+                  <div *ngIf="isEdit">
+                    <button ion-button round (click)="editTeluguMataData()">తెలుగుమాటను మార్చుము</button>
+                  </div>
+                  </ion-col>
+      
+      
+                  <ion-col>
+                    <button ion-button round (click)="reset();isNew=false;isEdit=false">ఆపివేయు</button>
+                  </ion-col>
+      
+                </ion-row>
+      
+              </ion-grid>
+      
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-grid>
+</ion-content>

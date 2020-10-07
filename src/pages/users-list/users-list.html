@@ -1,0 +1,169 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>ListMata</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+
+        <div *ngIf="users!=null">
+          <ion-card >
+            <ion-card-header text-center>
+              <span style="font-size:25px;color:black"><b>వాడుకరుల పట్టిక</b></span>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-grid text-center>
+
+                <ion-row>
+                  <ion-col>
+                    <ngx-datatable class="dark expandable" [rows]="this.users" [columnMode]="'force'"
+                      [headerHeight]="40" [footerHeight]="40" [rowHeight]="35" [limit]="8">
+
+                      <ngx-datatable-column name="వాడుకరి పేరు" [width]="100">
+                        <ng-template let-row="row" ngx-datatable-cell-template text-wrap>
+                          {{ row.userName}}
+                        </ng-template>
+                      </ngx-datatable-column>
+                      <ngx-datatable-column name="చాటుమాట" [width]="100">
+                        <ng-template let-row="row" ngx-datatable-cell-template text-wrap>
+
+                          {{ row.password}}
+                        </ng-template>
+                      </ngx-datatable-column>
+                      <ngx-datatable-column name="పాలకుడా" [width]="100">
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+
+                          {{row.adminUser}}
+
+                        </ng-template>
+                      </ngx-datatable-column>
+                      <ngx-datatable-column name="తయారి పొద్దు" [width]="100">
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+
+                          {{row.createdAt.split('T')[0]}}
+
+                        </ng-template>
+                      </ngx-datatable-column>
+
+                      <ngx-datatable-column name="మార్చిన పొద్దు" [width]="100">
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+
+                          {{row.updatedAt.split('T')[0]}}
+
+                        </ng-template>
+                      </ngx-datatable-column>
+
+                      <ngx-datatable-column [width]="100">
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                          <ion-row>
+                            <ion-col>
+                              <a (click)="updateUser(row);editUser=true;newUser=false;"
+                                style="color:lightblue;cursor:pointer"><u>Edit</u></a>
+                            </ion-col>
+                            <ion-col>
+                              <a (click)="deleteUser(row)"
+                                style="color:lightblue;cursor:pointer"><u>Delete</u></a>
+                            </ion-col>
+                          </ion-row>
+                        </ng-template>
+                      </ngx-datatable-column>
+                    </ngx-datatable>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col text-left>
+                    <button ion-button round (click)="newUser=true;editUser=false">కొత్త వాడుకరి</button>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <br>
+                </ion-row>
+                <div *ngIf="newUser">
+                  <ion-row>
+                    <ion-col>
+                      <ion-item class="controlColor">
+
+                        <ion-label floating>వాడుకరి</ion-label>
+                        <ion-input [(ngModel)]="userName" maxlength="16" type="text">
+                        </ion-input>
+                      </ion-item>
+
+                    </ion-col>
+                    <ion-col>
+                      <ion-item class="controlColor">
+                        <ion-label floating>చాటుమాట</ion-label>
+                        <ion-input [(ngModel)]="password" maxlength="16" type="text">
+                        </ion-input>
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col>
+                      <ion-item class="controlColor">
+                        <ion-label floating>పాలకుడా?</ion-label>
+                        <ion-select [(ngModel)]="adminUser" interface="popover">
+                          <ion-option *ngFor="let m of this.adminOptions" [value]="m.code"> {{m.value}}</ion-option>
+                        </ion-select>
+                      </ion-item>
+                    </ion-col>
+
+                  </ion-row>
+                  <ion-row>
+                    <ion-col text-left>
+                      <button ion-button round (click)="addNewUser();editUser=false;">వాడుకరిని తయారు చేయు</button>
+                    </ion-col>
+                  </ion-row>
+                </div>
+
+                <div *ngIf="editUser">
+                  <ion-row>
+                    <ion-col>
+                      <ion-item class="controlColor">
+
+                        <ion-label floating>వాడుకరి</ion-label>
+                        <ion-input [(ngModel)]="userName" [disabled]="editUser" maxlength="120"  type="text">
+                        </ion-input>
+                      </ion-item>
+
+                    </ion-col>
+                    <ion-col>
+                      <ion-item class="controlColor">
+                        <ion-label floating>చాటుమాట</ion-label>
+                        <ion-input [(ngModel)]="password" maxlength="16" type="text">
+                        </ion-input>
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col>
+                      <ion-item class="controlColor">
+                        <ion-label floating>పాలకుడా?</ion-label>
+                        <ion-select [(ngModel)]="adminUser" interface="popover">
+                          <ion-option *ngFor="let m of this.adminOptions" [value]="m.code"> {{m.value}}</ion-option>
+                        </ion-select>
+                      </ion-item>
+                    </ion-col>
+
+                  </ion-row>
+                  <ion-row>
+                    <ion-col text-left>
+                      <button ion-button round (click)="updateUserData();newUser=false">వాడుకరి వివరము మార్చు</button>
+                    </ion-col>
+                  </ion-row>
+                </div>
+              </ion-grid>
+            </ion-card-content>
+          </ion-card>
+        </div>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

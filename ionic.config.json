@@ -1,6 +1,7 @@
 {
-  "name": "Prabodha",
-  "app_id": "",
-  "type": "ionic-angular",
-  "integrations": {}
+  "name": "Thetatelugu",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
 }

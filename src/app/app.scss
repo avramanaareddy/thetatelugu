@@ -1,16 +1,128 @@
-// http://ionicframework.com/docs/theming/
+
+.ios, .md {
+    ion-content{
+           background-color: white;
+            
+            
+           user-select: text;
+       }
+       ion-footer{
+           background-color: #222;
+       }
+       div .col{
+           font-size: 18px;
+       }
+       .menu-inner{
+           width:260px;
+       }
+       .selectable,p,span {
+        
+        -webkit-user-select: text;
+        
+        -moz-user-select: text;
+        
+        -ms-user-select: text;
+        
+        user-select: text;
+        
+        }
+        
+
+        .mainshloka{
+            font-style:italic;
+            text-align:center;
+            border-style:double;
+            border-color:black;
+            font-weight: bold;
+        }
+        .ns{
+            text-align:center;
+            font-weight: bold;
+        }
 
 
-// App Global Sass
-// --------------------------------------------------
-// Put style rules here that you want to apply globally. These
-// styles are for the entire app and not just one component.
-// Additionally, this file can be also used as an entry point
-// to import other Sass files to be included in the output CSS.
-//
-// Shared Sass variables, which can be used to adjust Ionic's
-// default Sass variables, belong in "theme/variables.scss".
-//
-// To declare rules for a specific mode, create a child rule
-// for the .md, .ios, or .wp mode classes. The mode class is
-// automatically applied to the <body> element in the app.
+         .menuclass{color:snow;
+            font-size:15px;
+            margin-left:5px; 
+             
+            
+        }
+        .menuclass:hover{
+            background-color:blue;
+            color:white;
+            border-radius:10px;
+            font-weight:bold;
+             
+        }
+        .testBlink {
+            opacity: 0;
+            animation: blinking 1s infinite;
+          }
+          
+          @keyframes blinking {
+            from,
+            5% {
+              opacity: 1;
+              color:white;
+              
+            }
+            100%,
+            to {
+              opacity: 2;
+              color:gold;
+             
+            }
+          }
+          ion-icon {
+            display: inline-block;
+            margin-top:-5px;
+            font-size: 2.8em;
+        }
+        .grad1 {
+            height: 100%;
+            background: royalblue; /* For browsers that do not support gradients */
+            background: linear-gradient(to right, skyblue , royalblue); /* Standard syntax (must be last) */
+        }
+
+
+        .backgroundImage{ 
+            background-image: url("/assets/img/backwbl.jpg");
+            background-color: #cccccc;
+            border-radius: 10px;
+        
+            }
+            #footer {
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                background-color: #080d10;
+                text-align: center;
+                color: white;
+                
+            }
+            .controlColor{
+                 
+                font-weight: 900;
+                border-radius:10px;
+                background-color: rgb(225, 227, 245);
+            }
+
+            ion-modal {
+
+                ion-backdrop {
+                    visibility: visible;
+                    opacity: 0.75;
+                    z-index: 0;
+                }
+            }
+            .blink_text {
+                animation: blinker 1s linear infinite;
+              }
+              
+              @keyframes blinker {
+                50% {
+                  opacity: 0;
+                }
+              }
+    }
